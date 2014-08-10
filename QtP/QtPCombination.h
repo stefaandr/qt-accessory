@@ -46,10 +46,11 @@ class QtPFunctionBase2 : public QtPFunctionBase
 {
 public:
 	QtPFunctionBase2(QtPBase const & arg0, QtPBase const & arg1, QObject * parent = 0)
-		: QtPFunctionBase(parent), args({arg0, arg1}) {}
+		: QtPFunctionBase(parent), arg0(arg0), arg1(arg1)
+	{}
 
 protected:
-	QtPBase const args[2];
+	QtPBase const arg0, arg1;
 };
 
 #include <boost/functional.hpp>
@@ -92,16 +93,16 @@ public:
 	QtPFunction2(P <T0> const & arg0, P <T1> const & arg1, boost::function <F> function, QObject * parent = 0)
 		: QtPFunctionBase2(arg0, arg1, parent), function(function)
 	{
-		addUpdateTrigger(args[0]);
-		addUpdateTrigger(args[1]);
+		addUpdateTrigger(arg0);
+		addUpdateTrigger(arg1);
 		update();
 	}
 
 protected:
 	virtual void update()
 	{
-		T0 v0 = readQtP(args[0]).template value <T0> ();
-		T1 v1 = readQtP(args[1]).template value <T1> ();
+		T0 v0 = readQtP(arg0).template value <T0> ();
+		T1 v1 = readQtP(arg1).template value <T1> ();
 		Tout result = function(v0, v1);
 		setValue(result);
 	}
