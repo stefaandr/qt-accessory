@@ -7,10 +7,14 @@
  * A QtP representation of a function of one or two other QtP objects.
  */
 
+#ifdef QTPROPERTY_BOOST
+#include <boost/function.hpp>
+#else
+#include <functional>
+#endif
+
 #include "QtPObject.h"
 #include "QtPType.h"
-
-#include <boost/function.hpp>
 
 namespace QtProperty {
 

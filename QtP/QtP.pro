@@ -6,6 +6,8 @@
 
 QT       += core
 
+QMAKE_CXXFLAGS += -DQTPROPERTY_BOOST # required for pre-c++11
+
 TARGET = example
 CONFIG   += console
 CONFIG   -= app_bundle
