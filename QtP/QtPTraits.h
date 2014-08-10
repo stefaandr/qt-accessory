@@ -5,18 +5,19 @@ class QLineEdit;
 class QLabel;
 class QString;
 
-#include <boost/functional.hpp> // binary_traits
+#include "fwd.h"
 
 namespace QtProperty {
 
+#ifdef CXX11
 template <class T>
-struct FuncTraitsCombo
-{};
-/// \TODO I don't understand why using this combo works, while binary_traits directly does not
-template <class T, class U, class V>
-struct FuncTraitsCombo <T (U, V)> : boost::binary_traits <T (U, V)>
-{};
-
+struct FuncTraits {};
+template <class Tout, class Class, class... Targs>
+struct FuncTraits <Tout (Class::*)(Targs...) const>
+{
+    typedef function <Tout (Targs...)> type;
+};
+#endif
 struct DefaultsUnspecialized
 {
 	static char const * const propName; // "value"
