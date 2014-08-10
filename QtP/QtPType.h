@@ -45,7 +45,7 @@ public:
 
 }
 
-template <class T = void>
+template <class T>
 QtProperty::P <typename QtProperty::Defaults <T>::propType> QtP(T * obj)
 {
 	using namespace QtProperty;
