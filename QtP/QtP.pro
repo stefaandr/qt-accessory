@@ -6,8 +6,6 @@
 
 QT       += core
 
-QMAKE_CXXFLAGS += -std=c++0x
-
 TARGET = example
 CONFIG   += console
 CONFIG   -= app_bundle
