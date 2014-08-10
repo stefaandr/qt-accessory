@@ -17,10 +17,10 @@ QtPObject * P <T>::apply(Tout (*f)(T)) const
 
 template <class T>
 template <class F>
-QtPObject * P <T>::apply(boost::function <F> f) const
+QtPObject * P <T>::apply(function <F> f) const
 {
 	BOOST_STATIC_ASSERT_MSG((boost::is_same<typename boost::unary_traits <F>::argument_type, T>::value), "function prototype's argument must match the QtP object on which the apply(...) is being called");
-	return new QtPFunction1 <F> (*this, f);
+	return new QtPFunction1 <F> (f, *this);
 }
 
 template <class T>
@@ -32,11 +32,11 @@ QtPObject * P <T>::apply(Tout (*f)(T, T1), P <T> const & other) const
 
 template <class T>
 template <class F>
-QtPObject * P <T>::apply(boost::function <F> f, P <typename FuncTraitsCombo <F>::second_argument_type> const & other) const
+QtPObject * P <T>::apply(function <F> f, P <typename FuncTraitsCombo <F>::second_argument_type> const & other) const
 {
 	BOOST_STATIC_ASSERT_MSG((boost::is_same<typename boost::binary_traits <F>::first_argument_type, T>::value), "function prototype's first argument must match the QtP object on which the apply(...) is being called");
 		/// \TODO this seems to give unreadable errors
-	return new QtPFunction2 <F> (*this, other, f);
+	return new QtPFunction2 <F> (f, *this, other);
 }
 
 } // namespace QtProperty

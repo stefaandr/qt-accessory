@@ -34,13 +34,13 @@ public:
 	template <class Tout>
 	QtPObject * apply(Tout (*f)(T)) const;
 	template <class F>
-	QtPObject * apply(boost::function <F>) const;
+	QtPObject * apply(function <F>) const;
 
 	// binary
 	template <class Tout, class T1>
 	QtPObject * apply(Tout (*f)(T, T1), P const &) const;
 	template <class F>
-	QtPObject * apply(boost::function <F>, P <typename FuncTraitsCombo <F>::second_argument_type> const &) const;
+	QtPObject * apply(function <F>, P <typename FuncTraitsCombo <F>::second_argument_type> const &) const;
 };
 
 }
