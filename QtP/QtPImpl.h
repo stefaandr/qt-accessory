@@ -31,7 +31,7 @@ QtPObject * P <T>::apply(F f) const
 
 template <class T>
 template <class Tout, class T1>
-QtPObject * P <T>::apply(Tout (*f)(T, T1), P <T> const & other) const
+QtPObject * P <T>::apply(Tout (*f)(T, T1), P <T1> const & other) const
 {
 	return apply(function <Tout (T, T1)> (f), other);
 }
