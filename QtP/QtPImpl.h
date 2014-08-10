@@ -3,8 +3,7 @@
 
 #include "QtPCombination.h"
 
-#include <boost/type_traits/is_same.hpp>
-#include <boost/static_assert.hpp>
+#include <boost/utility/result_of.hpp>
 
 namespace QtProperty {
 
@@ -12,31 +11,44 @@ template <class T>
 template <class Tout>
 QtPObject * P <T>::apply(Tout (*f)(T)) const
 {
-	return apply <Tout (T)> (f);
+	return apply(function <Tout (T)> (f));
+}
+
+template <class T>
+template <class Tout>
+QtPObject * P <T>::apply(function <Tout (T)> f) const
+{
+	return new QtPFunction1 <Tout (T)> (f, *this);
 }
 
 template <class T>
 template <class F>
-QtPObject * P <T>::apply(function <F> f) const
+QtPObject * P <T>::apply(F f) const
 {
-	BOOST_STATIC_ASSERT_MSG((boost::is_same<typename boost::unary_traits <F>::argument_type, T>::value), "function prototype's argument must match the QtP object on which the apply(...) is being called");
-	return new QtPFunction1 <F> (f, *this);
+	typedef typename boost::result_of <F(T)>::type Tret;
+	return apply(function <Tret (T)> (f));
 }
 
 template <class T>
 template <class Tout, class T1>
 QtPObject * P <T>::apply(Tout (*f)(T, T1), P <T> const & other) const
 {
-	return apply <Tout (T, T1)> (f, other);
+	return apply(function <Tout (T, T1)> (f), other);
 }
 
 template <class T>
-template <class F>
-QtPObject * P <T>::apply(function <F> f, P <typename FuncTraitsCombo <F>::second_argument_type> const & other) const
+template <class Tout, class T1>
+QtPObject * P <T>::apply(function <Tout (T, T1)> f, P <T1> const & other) const
 {
-	BOOST_STATIC_ASSERT_MSG((boost::is_same<typename boost::binary_traits <F>::first_argument_type, T>::value), "function prototype's first argument must match the QtP object on which the apply(...) is being called");
-		/// \TODO this seems to give unreadable errors
-	return new QtPFunction2 <F> (f, *this, other);
+	return new QtPFunction2 <Tout (T, T1)> (f, *this, other);
+}
+
+template <class T>
+template <class F, class T1>
+QtPObject * P <T>::apply(F f, P <T1> const & other) const
+{
+	typedef typename boost::result_of <F(T, T1)>::type Tret;
+	return apply(function <Tret (T, T1)> (f), other);
 }
 
 } // namespace QtProperty
