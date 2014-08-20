@@ -4,9 +4,11 @@ include(${QT_USE_FILE})
 find_package(Boost 1.46.1 REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
-if (NOT USE_CXX11)
+if (USE_CXX11)
+	add_definitions(-DCXX11)
+else (USE_CXX11)
 	add_definitions(-DQTPROPERTY_BOOST)
-endif (NOT USE_CXX11)
+endif (USE_CXX11)
 
 set(CMAKE_AUTOMOC true)
 
@@ -39,6 +41,6 @@ set(QtP_HEADERS
     QtPTraits.h
 )
 
-add_executable(test ${QtP_SOURCES} ${QtP_HEADERS})
-target_link_libraries(test ${QT_LIBRARIES})
+add_executable(${profile}test ${QtP_SOURCES} ${QtP_HEADERS})
+target_link_libraries(${profile}test ${QT_LIBRARIES})
 

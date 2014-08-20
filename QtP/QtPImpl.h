@@ -3,8 +3,6 @@
 
 #include "QtPCombination.h"
 
-#include <boost/utility/result_of.hpp>
-
 namespace QtProperty {
 
 template <class T>
