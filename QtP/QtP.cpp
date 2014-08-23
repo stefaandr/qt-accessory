@@ -30,8 +30,6 @@ void P <T>::bindTo(P const & src) const
 	new QtPBinding <T>(src, *this);
 }
 
-#include <boost/lambda/lambda.hpp>
-using namespace boost::lambda;
 template class P <int>;
 template class P <double>;
 template class P <QString>;
