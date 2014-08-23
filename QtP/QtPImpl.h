@@ -23,7 +23,7 @@ template <class T>
 template <class F>
 QtPObject * P <T>::apply(F f) const
 {
-	typedef typename boost::result_of <F(T)>::type Tret;
+	typedef typename result_of <F(T)>::type Tret;
 	return apply(function <Tret (T)> (f));
 }
 
@@ -45,7 +45,7 @@ template <class T>
 template <class F, class T1>
 QtPObject * P <T>::apply(F f, P <T1> const & other) const
 {
-	typedef typename boost::result_of <F(T, T1)>::type Tret;
+	typedef typename result_of <F(T, T1)>::type Tret;
 	return apply(function <Tret (T, T1)> (f), other);
 }
 

@@ -9,9 +9,10 @@
 
 #ifdef QTPROPERTY_BOOST
 #include <boost/function.hpp>
+#include <boost/utility/result_of.hpp>
 #else
 #include <functional>
-#endif
+#endif // !QTPROPERTY_BOOST
 
 #include "QtPObject.h"
 #include "QtPType.h"
@@ -109,6 +110,48 @@ protected:
 	function <F> const f;
 };
 
+#ifdef QTPROPERTY_BOOST
+using boost::result_of;
+#else
+using std::result_of;
+#endif // !QTPROPERTY_BOOST
+
+template <typename Tout, class Targ0>
+P <Tout> QtPF(function <Tout (Targ0)> f, P <Targ0> arg0)
+{
+	return P <Tout> (new QtPFunction1 <Tout, Targ0> (f, arg0));
 }
+
+template <typename Tout, class Targ0>
+P <Tout> QtPF(Tout (*f)(Targ0), P <Targ0> arg0)
+{
+	return QtPF(function <Tout (Targ0)> (f), arg0);
+}
+
+template <typename L, class Targ0>
+P <typename result_of <L(Targ0)>::type> QtPF(L lambda, P <Targ0> arg0)
+{
+    return QtPF(function <typename result_of <L(Targ0)>::type (Targ0)> (lambda), arg0);
+}
+
+template <typename Tout, class Targ0, class Targ1>
+P <Tout> QtPF(function <Tout (Targ0, Targ1)> f, P <Targ0> arg0, P <Targ1> arg1)
+{
+	return P <Tout> (new QtPFunction2 <Tout, Targ0, Targ1> (f, arg0, arg1));
+}
+
+template <typename Tout, class Targ0, class Targ1>
+P <Tout> QtPF(Tout (*f)(Targ0, Targ1), P <Targ0> arg0, P <Targ1> arg1)
+{
+	return QtPF(function <Tout (Targ0, Targ1)> (f), arg0, arg1);
+}
+
+template <typename L, class Targ0, class Targ1>
+P <typename result_of <L(Targ0, Targ1)>::type> QtPF(L lambda, P <Targ0> arg0, P <Targ1> arg1)
+{
+    return QtPF(function <typename result_of <L(Targ0, Targ1)>::type (Targ0, Targ1)> (lambda), arg0, arg1);
+}
+
+} // namespace QtProperty
 
 #endif // QTPCOMBINATION_H

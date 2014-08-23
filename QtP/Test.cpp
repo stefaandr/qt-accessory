@@ -46,7 +46,7 @@ Test::Test(QWidget *parent)
 	// lcd[1] = 10
 	QtP(lcd[1]) << 10;
 	// lcd[2] = sp[2] + sp[3] / sp[2]
-	QtP(lcd[2]) << QtP(sp[2]).apply(_1 + _2 * _1, QtP(sp[3]));
+	QtP(lcd[2]) << QtPF(_1 + _2 * _1, QtP(sp[2]), QtP(sp[3]));
 	// lcd[3] = 4 + sp[3]
 	QtP(lcd[3]) << 4 + QtP(sp[3]);
 	// lcd[4] = - sp[4]
@@ -68,7 +68,7 @@ Test::Test(QWidget *parent)
 	// and just because we hadn't had a function pointer here yet:
 	{
 		QLabel * display = new QLabel; v->addWidget(display);
-		QtP(display) << QtP(sp[0]).apply(twoValuesVerbose, QtP(sp[1]));
+		QtP(display) << QtPF(twoValuesVerbose, QtP(sp[0]), QtP(sp[1]));
 	}
 
 	setLayout(v);
