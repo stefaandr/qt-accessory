@@ -16,7 +16,7 @@ template <class T>
 template <class Tout>
 QtPObject * P <T>::apply(function <Tout (T)> f) const
 {
-	return new QtPFunction1 <Tout (T)> (f, *this);
+	return new QtPFunction1 <Tout, T> (f, *this);
 }
 
 template <class T>
@@ -38,7 +38,7 @@ template <class T>
 template <class Tout, class T1>
 QtPObject * P <T>::apply(function <Tout (T, T1)> f, P <T1> const & other) const
 {
-	return new QtPFunction2 <Tout (T, T1)> (f, *this, other);
+	return new QtPFunction2 <Tout, T, T1> (f, *this, other);
 }
 
 template <class T>

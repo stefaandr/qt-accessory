@@ -57,15 +57,12 @@ protected:
 	QtPBase const arg0, arg1;
 };
 
-#include <boost/functional.hpp>
-
 /// specialization for unary functions of given types
-template <class F>
+template <class Tout, class T0>
 class QtPFunction1 : public QtPFunctionBase1
 {
 public:
-	typedef typename boost::unary_traits <F>::result_type Tout;
-	typedef typename boost::unary_traits <F>::argument_type T0;
+	typedef Tout (F)(T0);
 
 	QtPFunction1(function <F> f, P <T0> const & arg, QObject * parent = 0)
 		: QtPFunctionBase1(arg, parent), f(f)
@@ -86,13 +83,11 @@ protected:
 };
 
 /// specialization for binary functions of given types
-template <class F>
+template <class Tout, class T0, class T1>
 class QtPFunction2 : public QtPFunctionBase2
 {
 public:
-	typedef typename boost::binary_traits <F>::result_type Tout;
-	typedef typename boost::binary_traits <F>::first_argument_type T0;
-	typedef typename boost::binary_traits <F>::second_argument_type T1;
+	typedef Tout (F)(T0, T1);
 
 	QtPFunction2(function <F> f, P <T0> const & arg0, P <T1> const & arg1, QObject * parent = 0)
 		: QtPFunctionBase2(arg0, arg1, parent), f(f)
