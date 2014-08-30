@@ -14,22 +14,22 @@ using boost::lambda::_2;
 
 template <class T, class U>
 P <T> operator+(P <T> const & one, P <U> const & other)
-{ return one.template apply(ret <T> (_1 + _2), other); }
+{ return QtPF(ret <T> (_1 + _2), one, other); }
 
 template <class T, class U>
 P <T> operator-(P <T> const & one, P <U> const & other)
-{ return one.template apply(ret <T> (_1 - _2), other); }
+{ return QtPF(ret <T> (_1 - _2), one, other); }
 
 template <class T, class U>
 P <T> operator*(P <T> const & one, P <U> const & other)
-{ return one.template apply(ret <T> (_1 * _2), other); }
+{ return QtPF(ret <T> (_1 * _2), one, other); }
 
 template <class T, class U>
 P <T> operator/(P <T> const & one, P <U> const & other)
-{ return one.template apply(ret <T> (_1 / _2), other); }
+{ return QtPF(ret <T> (_1 / _2), one, other); }
 
 template <class T> P <T> operator-(P <T> const & one)
-{ return one.template apply(- _1); }
+{ return QtPF(- _1, one); }
 
 
 template <class T> P <T> operator+(T const & p0, P <T> const & p1)
