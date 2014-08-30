@@ -54,6 +54,6 @@ template <class T> P <T> operator/(P <T> const & p0, T const & p1)
 
 } // namespace QtProperty
 
-#include "QtPImpl.h"
+#include "QtPCombination.h"
 
 #endif // QTP_H

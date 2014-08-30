@@ -22,28 +22,6 @@ public:
 	void bindTo(P const &) const;
 	P const & operator<<(P const & src)
 	{ bindTo(src); return src; }
-
-	/* Three ways to call "apply":
-	 * one is with function pointer (without having to supply template arguments)
-	 * second is with lambda, you explicitly provide function prototype
-	 * third is with boost::function, which can be passed without giving extra template arguments
-	 */
-
-	// unary
-	template <class Tout>
-	QtPObject * apply(Tout (*f)(T)) const;
-	template <class Tout>
-	QtPObject * apply(function <Tout (T)>) const;
-	template <class F>
-	QtPObject * apply(F) const;
-
-	// binary
-	template <class Tout, class T1>
-	QtPObject * apply(Tout (*f)(T, T1), P <T1> const &) const;
-	template <class Tout, class T1>
-	QtPObject * apply(function <Tout (T, T1)>, P <T1> const &) const;
-	template <class F, class T1>
-	QtPObject * apply(F, P <T1> const &) const;
 };
 
 }

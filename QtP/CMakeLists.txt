@@ -32,7 +32,6 @@ set(QtP_HEADERS
     QtPBinding.h
     QtPCombination.h
     QtPConstant.h
-    QtPImpl.h
     QtPType.h
     QtPObject.h
     QtPAccess.h
