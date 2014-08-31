@@ -6,6 +6,19 @@
 
 #include <boost/lambda/lambda.hpp>
 
+/* convenience function: QtP(...), to access the 'default' property of the given object */
+template <class T>
+QtProperty::P <typename QtProperty::Defaults <T>::propType> QtP(T * obj)
+{
+    using namespace QtProperty;
+    return P <typename Defaults <T>::propType> (obj, Defaults <T>::propName);
+}
+
+/* convenience typedefs */
+typedef QtProperty::P <int> QtPInt;
+typedef QtProperty::P <double> QtPDouble;
+typedef QtProperty::P <QString> QtPString;
+
 namespace QtProperty {
 
 using boost::lambda::ret;
