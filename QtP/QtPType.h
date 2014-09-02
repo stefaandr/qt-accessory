@@ -3,8 +3,6 @@
 
 #include "fwd.h"
 
-#include <boost/functional.hpp> // traits
-
 #include "QtPBase.h"
 #include "QtPTraits.h"
 
