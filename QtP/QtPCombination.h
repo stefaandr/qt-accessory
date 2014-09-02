@@ -14,6 +14,14 @@
 #include <functional>
 #endif // !QTPROPERTY_BOOST
 
+namespace QtProperty {
+#ifdef QTPROPERTY_BOOST
+using boost::result_of;
+#else
+using std::result_of;
+#endif // !QTPROPERTY_BOOST
+}
+
 #include "QtPObject.h"
 #include "QtPType.h"
 
@@ -109,12 +117,6 @@ protected:
 
 	function <F> const f;
 };
-
-#ifdef QTPROPERTY_BOOST
-using boost::result_of;
-#else
-using std::result_of;
-#endif // !QTPROPERTY_BOOST
 
 template <typename Tout, class Targ0>
 P <Tout> QtPF(function <Tout (Targ0)> f, P <Targ0> arg0)
