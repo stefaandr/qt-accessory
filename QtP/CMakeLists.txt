@@ -38,6 +38,8 @@ set(QtP_HEADERS
     fwd.h
     QtPBase.h
     QtPTraits.h
+    QtPMisc.h
+    QtPFunction_14.h
 )
 
 add_executable(${profile}test ${QtP_SOURCES} ${QtP_HEADERS})

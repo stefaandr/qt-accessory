@@ -10,4 +10,5 @@ project(QtProperty-multibuild)
 add_subdirectory(gcc-4.6-boost)
 add_subdirectory(gcc-4.6-c++0x)
 add_subdirectory(gcc-4.8-c++11)
+add_subdirectory(gcc-4.9-c++14)
 

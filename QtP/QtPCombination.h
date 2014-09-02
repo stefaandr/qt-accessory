@@ -22,6 +22,12 @@ using std::result_of;
 #endif // !QTPROPERTY_BOOST
 }
 
+#ifdef QTPROPERTY_VARIADIC
+
+#include "QtPFunction_14.h"
+
+#else
+
 #include "QtPObject.h"
 #include "QtPType.h"
 
@@ -155,5 +161,7 @@ P <typename result_of <L(Targ0, Targ1)>::type> QtPF(L lambda, P <Targ0> arg0, P 
 }
 
 } // namespace QtProperty
+
+#endif // !QTPFUNCTION_VARIADIC
 
 #endif // QTPCOMBINATION_H

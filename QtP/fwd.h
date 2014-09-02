@@ -12,6 +12,7 @@ namespace QtProperty
 
 class QtPBase;
 class QtPObject;
+template <class T> class P;
 
 #ifdef QTPROPERTY_BOOST
 using boost::function;

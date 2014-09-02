@@ -20,6 +20,8 @@ public:
 	void bindTo(P const &) const;
 	P const & operator<<(P const & src)
 	{ bindTo(src); return src; }
+
+	T read() const { return p.read(obj).value <T>(); }
 };
 
 }
