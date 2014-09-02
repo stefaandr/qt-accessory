@@ -6,7 +6,9 @@
 #include <QLCDNumber>
 #include <QLineEdit>
 #include <QLabel>
+#ifndef CXX11
 #include <boost/lambda/lambda.hpp>
+#endif
 
 #include "QtP.h"
 
@@ -15,7 +17,6 @@ QString twoValuesVerbose(int a0, int a1)
 {
 	return QString("Two values: %1 and %2").arg(a0).arg(a1);
 }
-	/// \TODO future work: support C++11 lambda
 
 Test::Test(QWidget *parent)
 	: QWidget(parent)
@@ -40,13 +41,17 @@ Test::Test(QWidget *parent)
 	}
 
 	/* here we connect properties to one another, and perform functions on them on-the-fly */
-	using namespace boost::lambda;
 	// lcd[0] = sp[0] + sp[1]
 	QtP(lcd[0]) << (QtP(sp[0]) + QtP(sp[1]));
 	// lcd[1] = 10
 	QtP(lcd[1]) << 10;
 	// lcd[2] = sp[2] + sp[3] / sp[2]
+#ifdef CXX11
+	QtP(lcd[2]) << QtPF([] (int a, int b) { return a + b * a; }, QtP(sp[2]), QtP(sp[3]));
+#else
+	using namespace boost::lambda;
 	QtP(lcd[2]) << QtPF(_1 + _2 * _1, QtP(sp[2]), QtP(sp[3]));
+#endif
 	// lcd[3] = 4 + sp[3]
 	QtP(lcd[3]) << 4 + QtP(sp[3]);
 	// lcd[4] = - sp[4]
